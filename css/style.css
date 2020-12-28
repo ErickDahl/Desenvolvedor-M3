@@ -10,16 +10,16 @@ html, body {
 
     display: grid;
     grid-template-rows: auto auto auto auto auto auto 10vh auto; 
-    grid-template-columns: 0.5fr 1fr 5fr 1fr;
+    grid-template-columns: 0.5fr 1fr 5fr 0.5fr;
 
-    grid-template-areas: "a2 h h a"
-                         "a2 c c a"
+    grid-template-areas: "a2 h  h a"
+                         "a2 c  c a"
                          "a2 f1 p a"
                          "a2 f2 p a"
                          "a2 f3 p a"
                          "a2 s  p a"
                          'a2 s  l a'
-                         "f f f f";
+                         "f  f  f f";
 }
 
 div.header {
@@ -44,7 +44,7 @@ div.categoria {
 div.produtos {
     background-color: #ffffff;
     grid-area: p;
-    padding-left: 150px;
+    padding-left: 50px;
 }
 
 div.filtro1 {
@@ -53,7 +53,7 @@ div.filtro1 {
 }
 
 div.filtro2 {
-    background-color: blue;
+    background-color: yellow;
     grid-area: f2;
 }
 
@@ -152,6 +152,7 @@ div.header img{
     border: none;
     outline: none;
     font-family: inherit; 
+    margin-right: 150px;
 }
 
 .dropbtn {
@@ -160,6 +161,7 @@ div.header img{
     border: none;
     outline: none;
     padding: 14px 16px;
+    background-color: transparent;
 
 }
 
@@ -191,6 +193,7 @@ div.header img{
 
 .carrinho{
     display: flex;
+    min-width: 30px;
 }
 
 .fotoCarrinho{
@@ -225,4 +228,5 @@ div.header img{
     border: none;
     outline: none;
     cursor: pointer;
+    background-color: transparent;
 }
