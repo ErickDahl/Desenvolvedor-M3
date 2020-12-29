@@ -6,7 +6,7 @@ var produtos = [
         preco: 28.00,
         parcelamento: 5,
         cor: "Amarelo",
-        Tamanho : ["p","g"],
+        tamanho : "P",
         img: "/layout/imagens/img_2.png",
     },
     {
@@ -15,7 +15,7 @@ var produtos = [
         preco: 398.00,
         parcelamento: 5,
         cor: "Amarelo",
-        Tamanho : ["p","g"],
+        tamanho : "M",
         img: "/layout/imagens/img_3.png",
     },
     {
@@ -24,7 +24,7 @@ var produtos = [
         preco: 398.00,
         parcelamento: 5,
         cor: "Laranja",
-        Tamanho : ["p","g"],
+        tamanho : "G",
         img: "/layout/imagens/img_4.png",
     },
     {
@@ -33,7 +33,7 @@ var produtos = [
         preco: 99.90,
         parcelamento: 5,
         cor: "Azul",
-        Tamanho : ["p","g"],
+        tamanho : "GG",
         img: "/layout/imagens/img_5.png",
     },
     {
@@ -42,7 +42,7 @@ var produtos = [
         preco: 129.90,
         parcelamento: 5,
         cor: "Branco",
-        Tamanho : ["p","g"],
+        tamanho : "U",
         img: "/layout/imagens/img_6.png",
     },
     {
@@ -51,7 +51,7 @@ var produtos = [
         preco: 398.00,
         parcelamento: 5,
         cor: "Cinza",
-        Tamanho : ["p","g"],
+        tamanho : "36",
         img: "/layout/imagens/img_7.png",
     },
     {
@@ -60,7 +60,7 @@ var produtos = [
         preco: 120.00,
         parcelamento: 5,
         cor: "Branco",
-        Tamanho : ["p","g"],
+        tamanho : "38",
         img: "/layout/imagens/img_8.png",
     },
     {
@@ -69,7 +69,7 @@ var produtos = [
         preco: 398.00,
         parcelamento: 3,
         cor: "Azul",
-        Tamanho : ["p","g"],
+        tamanho : "40",
         img: "/layout/imagens/img_9.png",
     },
     {
@@ -78,23 +78,81 @@ var produtos = [
         preco: 99.00,
         parcelamento: 5,
         cor: "Cinza",
-        Tamanho : ["p","g"],
+        tamanho : "42",
+        img: "/layout/imagens/img_10.png",
+    },
+    {
+        id: 9,
+        nome: "Pochete Clucth",
+        preco: 40.00,
+        parcelamento: 5,
+        cor: "Cinza",
+        tamanho : "44",
+        img: "/layout/imagens/img_10.png",
+    },
+    {
+        id: 10,
+        nome: "Pochete Clucth",
+        preco: 29.00,
+        parcelamento: 5,
+        cor: "Laranja",
+        tamanho : "46",
+        img: "/layout/imagens/img_10.png",
+    },
+    {
+        id: 11,
+        nome: "Pochete Clucth",
+        preco: 99.00,
+        parcelamento: 5,
+        cor: "Rosa",
+        tamanho : "P",
+        img: "/layout/imagens/img_10.png",
+    },
+    {
+        id: 12,
+        nome: "Pochete Clucth",
+        preco: 500.00,
+        parcelamento: 5,
+        cor: "Verde",
+        tamanho : "M",
+        img: "/layout/imagens/img_10.png",
+    },
+    {
+        id: 13,
+        nome: "Pochete Clucth",
+        preco: 250.00,
+        parcelamento: 5,
+        cor: "Vermelho",
+        tamanho : "G",
+        img: "/layout/imagens/img_10.png",
+    },
+    {
+        id: 14,
+        nome: "Pochete Clucth",
+        preco: 160.00,
+        parcelamento: 5,
+        cor: "Roxo",
+        tamanho : "GG",
         img: "/layout/imagens/img_10.png",
     }
     
 ];
 
-var cores = ["Amarelo", "Azul", "Branco", "Cinza", "Laranja"];
+var cores = ["Amarelo", "Azul", "Branco", "Cinza", "Laranja", "Rosa", "Verde", "Vermelho", "Roxo"];
 var tamanhos = ["P","M","G","GG","U","36","38","40","42","44","46"];
 var precoFiltro = ["De R$0 até R$50","De R$51 até R$150","De R$151 até R$300","De R$301 até R$500","A partir de R$01"];
 
 
-
+var produtosMostrar = 9;
+var coresMostrar = 5;
 var qtd = [];
 var carrinho = [];
 var quantidadeNoCarrinhoInvidual = [];
 var quantidadeNoCarrinho = 0;
-var totalCarrinho = 0;
+var totalCompra = 0;
+var preco = document.getElementsByName("preco");
+var cor = document.getElementsByName("cor");
+var tamanho = document.getElementsByName("tamanho");
 var containerCarrinho = document.querySelector('.carrinhoDeCompras');
 var containerCores = document.querySelector('.cores');
 var containerTamanhos = document.querySelector('.tamanhos');
@@ -114,6 +172,10 @@ carregarProdutos = (prod) => {
             <input type="button" value="Comprar" onclick="comprar(${prod.id})">
         </div>
     `
+}
+
+limparTelaProdutos = () => {
+    containerProdutos.innerHTML = ``;
 }
 
 formataMoeda = (valor) => {
@@ -150,31 +212,44 @@ carregarCarrinho = () => {
     });
 
     containerQtd.innerHTML = `
-    <p>Total da compra: ${formataMoeda(totalCarrinho)}</p>
+    <p>Total da compra: ${formataMoeda(totalCompra)}</p>
     `
     containerQtdTotal.innerHTML = `
     <a class="qtdProdutos">${quantidadeNoCarrinho}</a>
     `
 }
 
+carregarMaisProdutos = () => {
 
-inicializarLoja = () => {
-  produtos.map((prod) => {
-      
-    carregarProdutos(prod);
-  })
+    produtosMostrar += 3;
 
-  criarFiltroCor();
-  criarFiltroTamanho();
-  criarFiltroPreco();
+    for(var i = 0; i < produtosMostrar; i++){
+        $(".item").eq(i).show();
+    }
+    
+}
+
+carregarMaisCores = () => {
+
+    coresMostrar += 4;
+
+    for(var i = 0; i < coresMostrar; i++){
+        $(".cor").eq(i).show();
+    }
+}
+
+esconderProdutos = () => {
+    $(".item").slice(produtosMostrar).hide();
 }
 
 criarFiltroCor = () => {
 
     cores.map((cor) => {
         containerCores.innerHTML += `
-            <input type="radio" name="cor" value="${cor}" id="${cor}" onclick="filtrarPorCor()">
-            <label for="${cor}">${cor}</label><br>
+            <div class="cor">
+                <input type="radio" name="cor" value="${cor}" id="${cor}" onclick="filtrarPorCor()">
+                <label for="${cor}">${cor}</label><br>
+            </div>
         `
     })
 }
@@ -182,7 +257,7 @@ criarFiltroCor = () => {
 criarFiltroTamanho = () => {
     tamanhos.map((tamanho) => {
         containerTamanhos.innerHTML += `
-            <input type="radio" name="tamanho" value="${tamanho}" id="${tamanho}">
+            <input type="radio" name="tamanho" value="${tamanho}" id="${tamanho}" onclick="filtrarPorTamanho()">
             <label for="${tamanho}">${tamanho}</label><br>   
         `
     })
@@ -191,7 +266,7 @@ criarFiltroTamanho = () => {
 criarFiltroPreco = () => {
     precoFiltro.map((preco) =>{
         containerPrecoFiltro.innerHTML += `
-            <input type="radio" name="preco" value="${preco}" id="${preco}">
+            <input type="radio" name="preco" value="${preco}" id="${preco}" onclick="filtrarPorPreco()">
             <label for="${preco}">${preco}</label><br>
         `
     })
@@ -200,30 +275,138 @@ criarFiltroPreco = () => {
 filtrarPorCor = () => {
     
     var valorCor = document.querySelector('input[name="cor"]:checked').value;
-    var valorTamanho = document.querySelector('input[name="tamanho"]:checked').value;
-    var valorPreco = document.querySelector('input[name="preco"]:checked').value;
-    containerProdutos.innerHTML = ``;
+
+    for(var i = 0; i < preco.length; i++)
+        preco[i].checked = false;
+
+    for(var i = 0; i < tamanho.length; i++)
+        tamanho[i].checked = false;
+
+    limparTelaProdutos();
 
     produtos.map((item) => {
         if(item.cor === valorCor){
-            containerProdutos.innerHTML += ` 
-                <div class = "item">
-                    <img src="${item.img}"/>
-                    <h2>${item.nome}</h2>
-                    <h3>${formataMoeda(item.preco)}</h3>
-                    <h4>até ${item.parcelamento}x de ${formataMoeda(item.preco/item.parcelamento)}</h4>
-                    <input type="button" value="Comprar" onclick="comprar(${item.id})">
-                </div>
-            `
+            carregarProdutos(item);
+            esconderProdutos();
         }
     })    
+}
+
+filtrarPorTamanho = () => {
+    
+    var valorTamanho = document.querySelector('input[name="tamanho"]:checked').value;
+
+    for(var i = 0; i < preco.length; i++)
+        preco[i].checked = false;
+
+    for(var i = 0; i < cor.length; i++)
+        cor[i].checked = false;
+
+    limparTelaProdutos();
+
+    produtos.map((item) => {
+        if(item.tamanho === valorTamanho){
+            carregarProdutos(item);
+        }
+    })    
+}
+
+filtrarPorPreco = () => {
+    
+    var valorPreco = document.querySelector('input[name="preco"]:checked').value;
+
+    for(var i = 0; i < tamanho.length; i++)
+        tamanho[i].checked = false;
+
+    for(var i = 0; i < cor.length; i++)
+        cor[i].checked = false;
+
+    limparTelaProdutos();
+
+    produtos.map((item) => {
+        switch(valorPreco){
+            case "De R$0 até R$50":
+                if(item.preco >= 0 && item.preco <= 50)
+                    carregarProdutos(item);
+                    esconderProdutos();
+            break;
+
+            case "De R$51 até R$150":
+                if(item.preco >= 51 && item.preco <= 150)
+                    carregarProdutos(item);
+                    esconderProdutos();
+            break;
+
+            case "De R$151 até R$300":
+                if(item.preco >= 151 && item.preco <= 300)
+                    carregarProdutos(item);
+                    esconderProdutos();
+            break;
+
+            case "De R$301 até R$500":
+                if(item.preco >= 301 && item.preco <= 500)
+                    carregarProdutos(item);
+                    esconderProdutos();
+            break;
+
+            default: 
+            carregarProdutos(item);
+            esconderProdutos();
+        }   
+    })    
+}
+
+filtrarPorRecente = () => {
+
+    var select = document.getElementById('ordenar');
+    var valor = select.options[select.selectedIndex].value;
+    var produtosOrdenados = [];
+
+    for(var i = 0; i < tamanho.length; i++)
+        tamanho[i].checked = false;
+
+    for(var i = 0; i < cor.length; i++)
+        cor[i].checked = false;
+
+    for(var i = 0; i < preco.length; i++)
+        preco[i].checked = false;
+
+    if(valor === "Mais recentes"){
+        limparTelaProdutos();
+        produtosOrdenados = produtos.sort(function(a,b){
+            return a.id < b.id ? 1 : a.id > b.id ? -1 : 0;
+        })
+        produtosOrdenados.map((prod) => {
+            carregarProdutos(prod);
+        })
+    }
+
+    if(valor === "Maior preco"){
+        limparTelaProdutos();
+        produtosOrdenados = produtos.sort(function(a,b){
+            return a.preco < b.preco ? 1 : a.preco > b.preco ? -1 : 0;
+        })
+        produtosOrdenados.map((prod) => {
+            carregarProdutos(prod);
+        })
+    }
+
+    if(valor === "Menor preco"){
+        limparTelaProdutos();
+        produtosOrdenados = produtos.sort(function(a,b){
+            return a.preco < b.preco ? -1 : a.preco > b.preco ? 1 : 0;
+        })
+        produtosOrdenados.map((prod) => {
+            carregarProdutos(prod);
+        })
+    }
 }
 
 comprar = (id) => {
 
     carrinho.push(produtos[id]);
     qtd.push(produtos[id].id);
-    totalCarrinho += produtos[id].preco;
+    totalCompra += produtos[id].preco;
     carrinho = carrinho.filter((este, i) => carrinho.indexOf(este) === i);
     quantidadeNoCarrinho++;
     containerCarrinho.innerHTML = ``;
@@ -234,7 +417,7 @@ comprar = (id) => {
 
 excluir = (id) => {
 
-    totalCarrinho -= produtos[id].preco * quantidadeNoCarrinhoInvidual[id];
+    totalCompra -= produtos[id].preco * quantidadeNoCarrinhoInvidual[id];
     
     console.log(qtd)
     qtd = qtd.filter(( elemento , index) => qtd.indexOf(elemento) === index);
@@ -254,5 +437,18 @@ excluir = (id) => {
     contarProdutosRepetidosCarrinho();
     carregarCarrinho();
 }
+
+inicializarLoja = () => {
+    produtos.map((prod) => {
+        
+      carregarProdutos(prod);
+  })
+  
+    esconderProdutos();
+    criarFiltroCor();
+    $(".cor").slice(coresMostrar).hide();
+    criarFiltroTamanho();
+    criarFiltroPreco();
+  }
 
 inicializarLoja();

@@ -9,7 +9,7 @@ html, body {
 .container {
 
     display: grid;
-    grid-template-rows: auto auto auto auto auto auto 10vh auto; 
+    grid-template-rows: auto auto 38vh 40vh 30vh auto 10vh auto; 
     grid-template-columns: 0.5fr 1fr 5fr 0.5fr;
 
     grid-template-areas: "a2 h  h a"
@@ -229,4 +229,33 @@ div.header img{
     outline: none;
     cursor: pointer;
     background-color: transparent;
+}
+
+.cores input, .precoFiltro input {
+    display: none;
+}
+
+.cores input + label::before, .precoFiltro input + label::before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background-color: #ffffff;
+    border: 1px solid;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+
+.cores input:checked + label::before, .precoFiltro input:checked + label::before{
+    background-color:#2bbff2;
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+    padding: 7px;
+}
+
+.carregarCores{
+    cursor: pointer;
+    color: grey;
+    text-decoration:underline;
 }
