@@ -9,17 +9,18 @@ html, body {
 .container {
 
     display: grid;
-    grid-template-rows: auto auto 38vh 40vh 30vh auto 10vh auto; 
+    grid-template-rows: auto 7vh 5vh 38vh 16vh 15vh auto 10vh 9vh; 
     grid-template-columns: 0.5fr 1fr 5fr 0.5fr;
 
-    grid-template-areas: "a2 h  h a"
-                         "a2 c  c a"
-                         "a2 f1 p a"
-                         "a2 f2 p a"
-                         "a2 f3 p a"
-                         "a2 s  p a"
-                         'a2 s  l a'
-                         "f  f  f f";
+    grid-template-areas: "h  h  h  h"
+                         "a2  c  c a"
+                         "a2 f0 f0 a"
+                         "a2 f1  p a"
+                         "a2 f2  p a"
+                         "a2 f3  p a"
+                         "a2 s   p a"
+                         'a2 s   l a'
+                         "f  f   f f";
 }
 
 div.header {
@@ -31,49 +32,47 @@ div.header {
 }
 
 div.aside2{
-    background-color: coral;
     grid-area: a2;
 }
 
+div.filtroMobile{
+    grid-area: f0;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
 div.categoria {
-    background-color: aqua;
     grid-area: c;
     display: flex;
 }
 
 div.produtos {
-    background-color: #ffffff;
     grid-area: p;
     padding-left: 50px;
 }
 
 div.filtro1 {
-    background-color: blueviolet;
     grid-area: f1;
 }
 
 div.filtro2 {
-    background-color: yellow;
     grid-area: f2;
 }
 
 div.filtro3 {
-    background-color: green;
     grid-area: f3;
 }
 
 div.section{
-    background-color: red;
     grid-area: s;
 }
 
 div.aside{
-    background-color: purple;
     grid-area: a;
 }
 
 div.load{
-    background-color:#353535;
     grid-area: l;
     display: flex;
     justify-content: center;
@@ -151,8 +150,7 @@ div.header img{
     margin-left: auto; 
     border: none;
     outline: none;
-    font-family: inherit; 
-    margin-right: 150px;
+    margin-right: 200px;
 }
 
 .dropbtn {
@@ -246,7 +244,6 @@ div.header img{
     margin-right: 8px;
 }
 
-
 .cores input:checked + label::before, .precoFiltro input:checked + label::before{
     background-color:#2bbff2;
     box-sizing: border-box;
@@ -258,4 +255,96 @@ div.header img{
     cursor: pointer;
     color: grey;
     text-decoration:underline;
+}
+
+#ordenar{
+    max-height: 30px;
+    margin-top: 25px;
+}
+
+.tamanho{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    display: flex;
+    margin-left: 200px;
+    margin-top: 18px;
+    
+}
+
+@media screen and (max-width: 500px){
+
+    div.aside2{
+        display: none;
+    }
+
+    div.categoria {
+        display: none;
+    }
+
+    div.filtro1 {
+        display: none;
+    }
+    
+    div.filtro2 {
+        display: none;
+    }
+    
+    div.filtro3 {
+        display: none;
+    }
+
+    div.section{
+        display: none;
+    }
+    
+    div.aside{
+        display: none;
+    }
+
+    .item input{
+        text-align: center;
+        width: 50%;
+        height: 40px;
+        background-color:#000000;
+        color: #ffffff;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: bolder;
+        border: 0;
+        cursor: pointer;
+        outline-style: none;
+        transition: background-color 1s;
+    }
+
+    div.filtroMobile{
+        margin-top: -60px;
+        background-color: #ffffff;
+        display: flex;
+    }
+
+    .filtrar{
+        width: 80px;
+        height: 50px;
+        background-color: white;
+        border: 1px solid black;
+        font-size: 16px;
+        cursor: pointer;  
+        justify-content: center;
+        align-self: center;
+    }
+
+    .bolsa{
+        margin-left: 100px;
+    }
+
+    .logo{
+        display: flex;
+        margin-left: 5px;
+        margin-top: 20px;
+        
+    }
 }

@@ -257,8 +257,10 @@ criarFiltroCor = () => {
 criarFiltroTamanho = () => {
     tamanhos.map((tamanho) => {
         containerTamanhos.innerHTML += `
+        <div class="tamanho">
             <input type="radio" name="tamanho" value="${tamanho}" id="${tamanho}" onclick="filtrarPorTamanho()">
-            <label for="${tamanho}">${tamanho}</label><br>   
+            <label for="${tamanho}">${tamanho}</label><br>
+        </div>  
         `
     })
 }
@@ -266,8 +268,8 @@ criarFiltroTamanho = () => {
 criarFiltroPreco = () => {
     precoFiltro.map((preco) =>{
         containerPrecoFiltro.innerHTML += `
-            <input type="radio" name="preco" value="${preco}" id="${preco}" onclick="filtrarPorPreco()">
-            <label for="${preco}">${preco}</label><br>
+                <input type="radio" name="preco" value="${preco}" id="${preco}" onclick="filtrarPorPreco()">
+                <label for="${preco}">${preco}</label><br>
         `
     })
 }
